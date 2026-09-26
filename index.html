@@ -2,27 +2,116 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Hasbiw ID</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasbiw Tools</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
     body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      font-family: Arial, sans-serif;
       color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
     }
     h1 {
       background: linear-gradient(90deg, #00e0ff, #ff00e0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-size: 3rem;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
+    .tool-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    h2 { color: #00e0ff; margin-bottom: 15px; font-size: 1.2rem; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #00e0ff;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      font-size: 1rem;
+    }
+    button {
+      background: linear-gradient(90deg, #00e0ff, #ff00e0);
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #hasil { margin-top: 10px; color: #ffff00; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>🔥 HASBIW ID 🔥</h1>
+
+  <h1>⚡ HASBIW TOOLS</h1>
+
+  <!-- KALKULATOR -->
+  <div class="tool-box">
+    <h2>🧮 Kalkulator</h2>
+    <input type="number" id="angka1" placeholder="Angka pertama">
+    <input type="number" id="angka2" placeholder="Angka kedua">
+    <button onclick="tambah()">Tambah (+)</button>
+    <button onclick="kurang()">Kurang (-)</button>
+    <button onclick="kali()">Kali (×)</button>
+    <button onclick="bagi()">Bagi (÷)</button>
+    <div id="hasil">Hasil: -</div>
+  </div>
+
+  <!-- GENERATOR PASSWORD -->
+  <div class="tool-box">
+    <h2>🔐 Generator Password</h2>
+    <input type="number" id="panjang" placeholder="Panjang password" value="12">
+    <button onclick="genPass()">Generate</button>
+    <div id="hasilPass">Password: -</div>
+  </div>
+
+<script>
+  function tampilHasil(angka) {
+    document.getElementById('hasil').innerText = 'Hasil: ' + angka;
+  }
+
+  function tambah() {
+    const a = parseFloat(document.getElementById('angka1').value) || 0;
+    const b = parseFloat(document.getElementById('angka2').value) || 0;
+    tampilHasil(a + b);
+  }
+  function kurang() {
+    const a = parseFloat(document.getElementById('angka1').value) || 0;
+    const b = parseFloat(document.getElementById('angka2').value) || 0;
+    tampilHasil(a - b);
+  }
+  function kali() {
+    const a = parseFloat(document.getElementById('angka1').value) || 0;
+    const b = parseFloat(document.getElementById('angka2').value) || 0;
+    tampilHasil(a * b);
+  }
+  function bagi() {
+    const a = parseFloat(document.getElementById('angka1').value) || 0;
+    const b = parseFloat(document.getElementById('angka2').value) || 0;
+    if (b === 0) { tampilHasil('Tidak bisa bagi 0'); return; }
+    tampilHasil(a / b);
+  }
+
+  function genPass() {
+    const panjang = parseInt(document.getElementById('panjang').value) || 12;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    let pass = '';
+    for (let i = 0; i < panjang; i++) {
+      pass += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    document.getElementById('hasilPass').innerText = 'Password: ' + pass;
+  }
+</script>
+
 </body>
 </html>
