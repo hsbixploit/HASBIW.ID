@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 HASBIW ID</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  padding: 30px 20px;
+}
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00e0ff, #ff00e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+.sub { text-align: center; color: #888; margin-bottom: 30px; }
+.box {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 25px;
+}
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #00e0ff;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 1rem;
+}
+button {
+  background: linear-gradient(90deg, #00e0ff, #ff00e0);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+#hasil {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  word-break: break-all;
+  max-height: 400px;
+  overflow-y: auto;
+}
+</style>
+</head>
+<body>
+
+<h1>⚡ HASBIW ID</h1>
+<p class="sub">Web + API dalam satu project</p>
+
+<div class="box">
+  <input type="text" id="url" placeholder="Masukin URL (contoh: https://example.com)" />
+  <button onclick="ambilData()">🚀 Ambil Data via API</button>
+  <div id="hasil">Hasil muncul di sini...</div>
+</div>
+
+<script>
+async function ambilData() {
+  const url = document.getElementById('url').value.trim();
+  const hasil = document.getElementById('hasil');
+
+  if (!url) {
+    hasil.innerText = '❌ Masukin URL dulu!';
+    return;
+  }
+
+  hasil.innerText = '⏳ Loading...';
+
+  try {
+    // Panggil API internal (Functions di folder /functions)
+    const res = await fetch('/api?url=' + encodeURIComponent(url));
+    const data = await res.json();
+
+    if (data.error) {
+      hasil.innerText = '❌ ' + data.error;
+      return;
+    }
+
+    hasil.innerHTML = `
+      <b style="color:#00e0ff;">📄 ${data.title || 'Tanpa Judul'}</b><br><br>
+      ${data.text ? data.text.substring(0, 1000) + '...' : 'Ga ada teks'}
+    `;
+  } catch (e) {
+    hasil.innerText = '❌ Error: ' + e.message;
+  }
+}
+</script>
+
+</body>
+</html>
